@@ -22,7 +22,12 @@ public class Plane extends Shape {
     public Plane(Point point, Vector normal, Color diffuse, Color specular) {
         super(diffuse, specular);
         this.point = point;
-        this.normal = normal;
+        double length = Math.sqrt(normal.dot(normal));
+        this.normal = new Vector(
+            normal.getX() / length,
+            normal.getY() / length,
+            normal.getZ() / length
+        );
     }
 
     // Getters

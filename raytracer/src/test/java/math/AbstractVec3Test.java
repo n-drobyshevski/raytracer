@@ -27,7 +27,7 @@ class AbstractVec3Test {
 
         assertEquals(vec1, vec2);
         assertNotEquals(vec1, vec3);
-        assertNotEquals(vec1, null);
+        assertNotEquals(null, vec1);
         assertEquals(vec1, vec1);
     }
 

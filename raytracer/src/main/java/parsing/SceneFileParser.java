@@ -197,7 +197,7 @@ public class SceneFileParser {
         if (tokens.length != 7) throw new ParsingException("Erreur 'directional': 6 arguments attendus.");
         Vector direction = parseVector(tokens, 1);
         Color color = parseColor(tokens, 4);
-        checkLightSum(color);
+        validateLightIntensity(color);
         scene.addLight(new DirectionalLight(direction, color));
     }
 
@@ -208,7 +208,7 @@ public class SceneFileParser {
         if (tokens.length != 7) throw new ParsingException("Erreur 'point': 6 arguments attendus.");
         Point position = parsePoint(tokens, 1);
         Color color = parseColor(tokens, 4);
-        checkLightSum(color);
+        validateLightIntensity(color);
         scene.addLight(new PointLight(position, color));
     }
 
@@ -335,4 +335,24 @@ public class SceneFileParser {
             throw new ParsingException("Validation échouée: La somme des couleurs de lumière dépasse 1.0.");
         }
     }
+
+    /**
+     * Valide que l'ajout d'une nouvelle lumière ne dépasse pas l'intensité maximale totale.
+     * @param newColor La couleur de la nouvelle lumière à ajouter
+     * @throws ParsingException Si l'ajout dépasserait l'intensité maximale
+     */
+    private void validateLightIntensity(Color newColor) throws ParsingException {
+        // Check if adding this light would exceed the maximum intensity
+        double newRed = totalLightColor.r() + newColor.r();
+        double newGreen = totalLightColor.g() + newColor.g();
+        double newBlue = totalLightColor.b() + newColor.b();
+
+        if (newRed > 1.0 || newGreen > 1.0 || newBlue > 1.0) {
+            throw new ParsingException("Total light intensity cannot exceed 1.0 for any color component");
+        }
+
+        // Only update the total if validation passes
+        totalLightColor = new Color(newRed, newGreen, newBlue);
+    }
 }
+

@@ -16,7 +16,7 @@ public abstract class Shape {
      * @param diffuse Couleur diffuse
      * @param specular Couleur spéculaire
      */
-    public Shape(Color diffuse, Color specular) {
+    protected Shape(Color diffuse, Color specular) {
         this.diffuse = diffuse;
         this.specular = specular;
     }
