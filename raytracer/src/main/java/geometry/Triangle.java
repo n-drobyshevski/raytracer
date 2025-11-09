@@ -2,6 +2,10 @@ package geometry;
 
 import imaging.Color;
 import math.Point;
+import math.Ray;
+import raytracer.Intersection;
+
+import java.util.Optional;
 
 /**
  * Représente un triangle, défini par trois sommets
@@ -32,4 +36,10 @@ public class Triangle extends Shape {
     public Point getA() { return a; }
     public Point getB() { return b; }
     public Point getC() { return c; }
+
+    @Override
+    public Optional<Intersection> intersect(Ray ray) {
+        // Ce jalon se limite aux sphères
+        return Optional.empty();
+    }
 }

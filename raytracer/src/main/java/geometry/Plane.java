@@ -2,7 +2,11 @@ package geometry;
 
 import imaging.Color;
 import math.Point;
+import math.Ray;
 import math.Vector;
+import raytracer.Intersection;
+
+import java.util.Optional;
 
 /**
  * Représente un plan infini
@@ -33,4 +37,10 @@ public class Plane extends Shape {
     // Getters
     public Point getPoint() { return point; }
     public Vector getNormal() { return normal; }
+
+    @Override
+    public Optional<Intersection> intersect(Ray ray) {
+        // Ce jalon se limite aux sphères
+        return Optional.empty();
+    }
 }

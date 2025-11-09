@@ -2,11 +2,14 @@ package scene;
 
 import geometry.Shape;
 import imaging.Color;
+import math.Ray;
 import raytracer.AbstractLight;
 import raytracer.Camera;
+import raytracer.Intersection;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Classe conteneur pour tous les éléments de la scène
@@ -43,5 +46,34 @@ public class Scene {
     }
     public void addShape(Shape shape) {
         this.shapes.add(shape);
+    }
+
+    /**
+     * Calcule l'intersection la plus proche d'un rayon avec les objets de la scène
+     * @param ray Le rayon à tester
+     * @return Un Optional<Intersection> contenant l'intersection la plus proche,
+     * ou vide s'il n'y a pas d'intersection.
+     */
+    public Optional<Intersection> findClosestIntersection(Ray ray) {
+        Optional<Intersection> closestIntersection = Optional.empty();
+        double minT = Double.MAX_VALUE;
+
+        // On calcule les intersections possibles avec tous les objets
+        for (Shape shape : shapes) {
+            Optional<Intersection> currentIntersection = shape.intersect(ray);
+
+            if (currentIntersection.isPresent()) {
+                Intersection intersection = currentIntersection.get();
+                double t = intersection.getT();
+
+                // On garde la plus petite distance 't' positive
+                if (t > 0 && t < minT) {
+                    minT = t;
+                    closestIntersection = currentIntersection;
+                }
+            }
+        }
+        // On retourne la plus petite trouvée
+        return closestIntersection;
     }
 }
