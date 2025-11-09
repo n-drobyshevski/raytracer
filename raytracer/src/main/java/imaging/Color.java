@@ -1,4 +1,6 @@
-package math;
+package imaging;
+
+import math.AbstractVec3;
 
 /**
  * Représente une couleur RGB

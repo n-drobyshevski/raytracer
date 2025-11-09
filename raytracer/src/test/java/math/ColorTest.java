@@ -1,5 +1,6 @@
 package math;
 
+import imaging.Color;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
