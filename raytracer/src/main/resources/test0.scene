@@ -1,0 +1,32 @@
+# Fichier de scène de test pour le Jalon 3
+
+# Contient une seule sphère pour valider l'intersection.
+
+# Taille de l'image de test (petite pour aller vite)
+
+size 100 100
+
+# Nom du fichier de sortie pour MainIntegrationTest
+
+output test-output.png
+
+# Caméra (identique à vos scènes de test)
+
+camera 0 0 4 0 0 0 0 1 0 45
+
+# Lumière ambiante
+
+ambient .1 .1 .1
+
+# Matériau pour la sphère
+
+# NOTE: diffuse est à 0.8 (et non 1.0) pour passer la
+
+#  validation (ambient + diffuse <= 1.0)
+
+diffuse 0.8 0 0
+specular 0.1 0.1 0.1
+
+# Géométrie: une seule sphère au centre
+
+sphere 0 0 0 1

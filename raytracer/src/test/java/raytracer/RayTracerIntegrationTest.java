@@ -31,7 +31,7 @@ public class RayTracerIntegrationTest {
         assertNotNull(sceneUrl, "Impossible de trouver integration-scene.txt dans src/test/resources");
 
         SceneFileParser parser = new SceneFileParser();
-        
+
         String correctPath = Paths.get(sceneUrl.toURI()).toString();
         testScene = parser.parse(correctPath);
 
