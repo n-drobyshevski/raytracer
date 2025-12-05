@@ -9,7 +9,8 @@ import raytracer.Intersection;
 import java.util.Optional;
 
 /**
- * Représente un objet Sphère
+ * Représente un objet Sphère.
+ * Mise à jour Jalon 4 : Calcul de la normale et du point d'intersection.
  */
 public class Sphere extends Shape {
 
@@ -40,7 +41,8 @@ public class Sphere extends Shape {
     }
 
     /**
-     * Calcule l'intersection d'un rayon avec la sphère
+     * Calcule l'intersection d'un rayon avec la sphère.
+     * Inclut le calcul de la normale pour l'éclairage (Jalon 4).
      */
     @Override
     public Optional<Intersection> intersect(Ray ray) {
@@ -78,19 +80,26 @@ public class Sphere extends Shape {
         double t2 = (-b - sqrtDelta) / (2 * a);
 
         // On cherche la plus petite intersection positive
-        // t2 est toujours plus petit que t1
-
-        // Si t2 est positif, c'est le plus proche
+        double t = -1;
         if (t2 > 0) {
-            return Optional.of(new Intersection(t2, this));
+            t = t2;
+        } else if (t1 > 0) {
+            t = t1;
+        } else {
+            // Toutes les intersections sont derrière la caméra
+            return Optional.empty();
         }
 
-        // Sinon, si t1 est positif, c'est le plus proche
-        if (t1 > 0) {
-            return Optional.of(new Intersection(t1, this));
-        }
+        // --- MISE À JOUR JALON 4 : Calcul des données pour l'éclairage ---
 
-        // Sinon, les deux intersections sont négatives (derrière la caméra)
-        return Optional.empty();
+        // 1. Point d'intersection P = Origine + t * Direction
+        Point p = ray.pointAt(t);
+
+        // 2. Normale N = (P - Centre) / ||P - Centre||
+        // La normale doit toujours être normalisée (longueur 1)
+        Vector normal = p.subtract(this.center).normalize();
+
+        // 3. Retourne l'intersection enrichie avec P, la Normale, et la couleur diffuse
+        return Optional.of(new Intersection(p, normal, this.getDiffuse(), t, this));
     }
 }

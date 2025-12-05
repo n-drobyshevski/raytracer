@@ -61,8 +61,17 @@ public class RayTracer {
 
         // 3. Calculer la couleur
         if (closestIntersection.isPresent()) {
-            // Si p existe, utiliser la couleur ambiante
-            return scene.getAmbient();
+            Intersection intersection = closestIntersection.get();
+            // 1. Commencer avec la lumière ambiante
+            Color finalColor = scene.getAmbient();
+
+            // 2. Ajouter la contribution de chaque lumière (Lambert)
+            for (AbstractLight light : scene.getLights()) {
+                Color contribution = intersection.calculateColor(light);
+                finalColor = finalColor.add(contribution);
+            }
+
+            return finalColor;
         } else {
             // Sinon, utiliser du noir
             return new Color(0, 0, 0); // Noir

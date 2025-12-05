@@ -1,0 +1,31 @@
+# Scène de test pour l'éclairage Lambert (Jalon 4)
+
+size 200 200
+output test_lighting.png
+
+# Caméra placée en (0,0,5) regardant le centre (0,0,0)
+
+camera 0 0 5 0 0 0 0 1 0 53
+
+# Matériaux globaux
+
+# Une ambiance rouge faible
+
+ambient 0.1 0.0 0.0
+
+# Une lumière directionnelle blanche qui vient de devant (axe Z+)
+
+# Direction (0,0,1) signifie que la lumière vient de derrière la caméra et va vers la scène
+
+directional 0 0 1 1.0 1.0 1.0
+
+# Sphère rouge au centre
+
+# Diffuse rouge (0.9, 0, 0)
+
+diffuse 0.9 0.0 0.0
+specular 0.0 0.0 0.0
+
+# Géométrie : Sphère de rayon 1 à l'origine
+
+sphere 0 0 0 1

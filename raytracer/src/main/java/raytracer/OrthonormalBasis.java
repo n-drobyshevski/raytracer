@@ -16,13 +16,13 @@ public class OrthonormalBasis {
      * @param camera L'objet Camera contenant lookFrom, lookAt, et up.
      */
     public OrthonormalBasis(Camera camera) {
-        // w = (lookFrom - lookAt) / ||lookFrom - lookAt|| [cite: 33]
+        // w = (lookFrom - lookAt) / ||lookFrom - lookAt||
         this.w = camera.getLookFrom().subtract(camera.getLookAt()).normalize();
 
-        // u = (up x w) / ||up x w|| [cite: 37]
+        // u = (up x w) / ||up x w||
         this.u = camera.getUp().cross(this.w).normalize();
 
-        // v = (w x u) / ||w x u|| [cite: 37]
+        // v = (w x u) / ||w x u||
         this.v = this.w.cross(this.u).normalize();
     }
 

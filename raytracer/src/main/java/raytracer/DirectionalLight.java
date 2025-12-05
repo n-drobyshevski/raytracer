@@ -2,6 +2,7 @@ package raytracer;
 
 import imaging.Color;
 import math.Vector;
+import math.Point;
 
 /**
  * Lumière directionnelle globale
@@ -21,4 +22,11 @@ public class DirectionalLight extends AbstractLight {
     }
 
     public Vector getDirection() { return direction; }
+
+    @Override
+    public Vector getL(Point p) {
+        // Pour une lumière directionnelle, le vecteur L est constant.
+        // On suppose que le vecteur fourni dans le fichier est la direction VERS la lumière.
+        return this.direction;
+    }
 }

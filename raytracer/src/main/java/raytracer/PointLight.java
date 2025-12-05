@@ -2,6 +2,7 @@ package raytracer;
 
 import imaging.Color;
 import math.Point;
+import math.Vector;
 
 /**
  * Source de lumière ponctuelle locale
@@ -21,4 +22,11 @@ public class PointLight extends AbstractLight {
     }
 
     public Point getPosition() { return position; }
+
+    @Override
+    public Vector getL(Point p) {
+        // Le vecteur L est le vecteur allant du point P vers la position de la lumière
+        // L = (LightPos - P) normalisé
+        return this.position.subtract(p).normalize();
+    }
 }
