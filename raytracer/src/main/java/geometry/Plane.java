@@ -9,38 +9,54 @@ import raytracer.Intersection;
 import java.util.Optional;
 
 /**
- * Représente un plan infini
+ * Représente un plan infini défini par un point et une normale.
  */
 public class Plane extends Shape {
 
     private final Point point;   // Un point appartenant au plan
     private final Vector normal; // Le vecteur normal au plan
 
-    /**
-     * Crée un nouveau plan.
-     * @param point Un point sur le plan
-     * @param normal La normale du plan
-     * @param diffuse Couleur diffuse
-     * @param specular Couleur spéculaire
-     */
     public Plane(Point point, Vector normal, Color diffuse, Color specular, double shininess) {
         super(diffuse, specular, shininess);
         this.point = point;
-        double length = Math.sqrt(normal.dot(normal));
-        this.normal = new Vector(
-            normal.getX() / length,
-            normal.getY() / length,
-            normal.getZ() / length
-        );
+        this.normal = normal.normalize(); // On s'assure que la normale est normalisée
     }
 
-    // Getters
     public Point getPoint() { return point; }
     public Vector getNormal() { return normal; }
 
     @Override
     public Optional<Intersection> intersect(Ray ray) {
-        // Ce jalon se limite aux sphères
+        // Formule d'intersection Rayon-Plan :
+        // t = ((point_plan - origine_rayon) . normale_plan) / (direction_rayon . normale_plan)
+
+        double denominator = ray.getDirection().dot(this.normal);
+
+        // Si le dénominateur est proche de 0, le rayon est parallèle au plan -> Pas d'intersection
+        if (Math.abs(denominator) < 1e-6) {
+            return Optional.empty();
+        }
+
+        Vector originToPlane = this.point.subtract(ray.getOrigin());
+        double t = originToPlane.dot(this.normal) / denominator;
+
+        // L'intersection doit être devant la caméra (t > 0)
+        if (t > 1e-6) {
+            Point p = ray.pointAt(t);
+
+            // Pour un plan, la normale est constante
+            // (Optionnel : si on veut voir le plan des deux côtés, on peut inverser la normale si denominator > 0)
+            return Optional.of(new Intersection(
+                    p,
+                    this.normal,
+                    this.getDiffuse(),
+                    this.getSpecular(),
+                    this.getShininess(),
+                    t,
+                    this
+            ));
+        }
+
         return Optional.empty();
     }
 }
