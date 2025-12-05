@@ -15,7 +15,9 @@ class PlaneTest {
         Color diffuse = new Color(0.5, 0.5, 0.5);
         Color specular = new Color(1, 1, 1);
 
-        Plane plane = new Plane(point, normal, diffuse, specular);
+        double shininess = 32.0;
+
+        Plane plane = new Plane(point, normal, diffuse, specular, shininess);
 
         assertEquals(point, plane.getPoint(), "Point should match constructor argument");
         assertEquals(normal, plane.getNormal(), "Normal should match constructor argument");
@@ -29,8 +31,9 @@ class PlaneTest {
         Vector normal = new Vector(0, 2, 0); // Non-normalized vector
         Color diffuse = new Color(0.5, 0.5, 0.5);
         Color specular = new Color(1, 1, 1);
+        double shininess = 32.0;
 
-        Plane plane = new Plane(point, normal, diffuse, specular);
+        Plane plane = new Plane(point, normal, diffuse, specular, shininess);
         Vector retrievedNormal = plane.getNormal();
 
         assertEquals(1.0, retrievedNormal.length(), 0.0001,

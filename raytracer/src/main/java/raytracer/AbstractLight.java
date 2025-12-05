@@ -27,4 +27,9 @@ public abstract class AbstractLight {
      * @return Le vecteur direction normalisé vers la source lumineuse
      */
     public abstract Vector getL(Point p);
+    /**
+     * Calcule la distance jusqu'à la lumière depuis un point P.
+     * Nécessaire pour les ombres (pour ne pas tester au-delà de la lumière).
+     */
+    public abstract double getDistance(Point p);
 }

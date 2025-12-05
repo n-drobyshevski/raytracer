@@ -23,8 +23,8 @@ public class Plane extends Shape {
      * @param diffuse Couleur diffuse
      * @param specular Couleur spéculaire
      */
-    public Plane(Point point, Vector normal, Color diffuse, Color specular) {
-        super(diffuse, specular);
+    public Plane(Point point, Vector normal, Color diffuse, Color specular, double shininess) {
+        super(diffuse, specular, shininess);
         this.point = point;
         double length = Math.sqrt(normal.dot(normal));
         this.normal = new Vector(

@@ -1,0 +1,32 @@
+# Scène de test pour Jalon 5 (Phong uniquement)
+
+size 200 200
+output test_phong.png
+
+# Caméra face à la scène
+
+camera 0 0 5 0 0 0 0 1 0 50
+
+# Pas de lumière ambiante pour isoler le reflet
+
+ambient 0 0 0
+
+# Lumière blanche venant de la position de la caméra
+
+directional 0 0 1 1 1 1
+
+# Matériau :
+
+# Diffuse Noir (0,0,0) -> On éteint Lambert pour mieux voir Phong
+
+# Specular Blanc (1,1,1) -> Le reflet sera blanc
+
+# Shininess 50 -> Reflet assez concentré
+
+diffuse 0 0 0
+specular 1 1 1
+shininess 50
+
+# Sphère au centre
+
+sphere 0 0 0 1

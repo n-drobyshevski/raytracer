@@ -62,13 +62,29 @@ public class RayTracer {
         // 3. Calculer la couleur
         if (closestIntersection.isPresent()) {
             Intersection intersection = closestIntersection.get();
-            // 1. Commencer avec la lumière ambiante
+            Point p = intersection.getPoint();
+
+            // --- JALON 5 : Calculs Phong et Ombres ---
+
+            // 1. Calculer EyeDir (Vecteur du point vers la caméra)
+            // C'est l'inverse de la direction du rayon de vue
+            Vector eyeDir = viewRay.getDirection().multiply(-1).normalize();
+
             Color finalColor = scene.getAmbient();
 
-            // 2. Ajouter la contribution de chaque lumière (Lambert)
             for (AbstractLight light : scene.getLights()) {
-                Color contribution = intersection.calculateColor(light);
-                finalColor = finalColor.add(contribution);
+                Vector l = light.getL(p);
+                double distToLight = light.getDistance(p);
+
+                // 2. Gestion des ombres (Shadow Ray)
+                Ray shadowRay = new Ray(p, l);
+                boolean isInShadow = scene.isShadowed(shadowRay, distToLight);
+
+                if (!isInShadow) {
+                    // 3. Appel corrigé avec eyeDir
+                    Color contribution = intersection.calculateColor(light, eyeDir);
+                    finalColor = finalColor.add(contribution);
+                }
             }
 
             return finalColor;

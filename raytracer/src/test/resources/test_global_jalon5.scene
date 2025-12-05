@@ -1,0 +1,46 @@
+# Scène de test globale (Jalon 1 à 5)
+
+size 200 200
+output test_global.png
+
+# Caméra standard (0,0,5)
+
+camera 0 0 5 0 0 0 0 1 0 45
+
+# Ambiante très faible (Gris foncé)
+
+ambient 0.1 0.1 0.1
+
+# --- LUMIÈRES ---
+
+# Lumière 1 : Au sommet (0, 5, 0).
+
+# Elle devrait éclairer le haut de la sphère, MAIS elle sera bloquée par la sphère 'Blocker'.
+
+point 0 5 0 0.4 0.4 0.4
+
+# Lumière 2 : Devant-Droite (2, 0, 5).
+
+# Elle n'est pas bloquée. Elle doit créer de la diffusion et un reflet spéculaire.
+
+point 2 0 5 0.5 0.5 0.5
+
+# --- OBJETS ---
+
+# Objet 1 : Sphère "Blocker" (Celle qui fait l'ombre)
+
+# Placée en (0, 2, 0), entre la Lumière 1 (0,5,0) et le haut de la Sphère Receiver (0,1,0)
+
+diffuse 0.2 0.2 0.2
+specular 0 0 0
+shininess 1
+sphere 0 2 0 0.5
+
+# Objet 2 : Sphère "Receiver" (Celle qu'on regarde) - Bleue
+
+# Placée au centre.
+
+diffuse 0 0 0.9
+specular 1 1 1
+shininess 50
+sphere 0 0 0 1

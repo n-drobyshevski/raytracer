@@ -14,8 +14,9 @@ class TriangleTest {
         Point c = new Point(0, 1, 0);
         Color diffuse = new Color(0.5, 0.5, 0.5);
         Color specular = new Color(1, 1, 1);
+        double shininess = 32.0;
 
-        Triangle triangle = new Triangle(a, b, c, diffuse, specular);
+        Triangle triangle = new Triangle(a, b, c, diffuse, specular, shininess);
 
         assertEquals(a, triangle.getA(), "Vertex A should match constructor argument");
         assertEquals(b, triangle.getB(), "Vertex B should match constructor argument");
@@ -31,8 +32,9 @@ class TriangleTest {
         Point c = new Point(1, 1, 0);
         Color diffuse = new Color(0.5, 0.5, 0.5);
         Color specular = new Color(1, 1, 1);
+        double shininess = 32.0;
 
-        Triangle triangle = new Triangle(a, b, c, diffuse, specular);
+        Triangle triangle = new Triangle(a, b, c, diffuse, specular, shininess);
 
         assertEquals(true, triangle.getA().equals(triangle.getB()),
             "Should allow coincident vertices even though it creates a degenerate triangle");
@@ -45,8 +47,9 @@ class TriangleTest {
         Point c = new Point(2, 2, 2); // Collinear with a and b
         Color diffuse = new Color(0.5, 0.5, 0.5);
         Color specular = new Color(1, 1, 1);
+        double shininess = 32.0;
 
-        Triangle triangle = new Triangle(a, b, c, diffuse, specular);
+        Triangle triangle = new Triangle(a, b, c, diffuse, specular, shininess);
 
         assertNotNull(triangle, "Should allow creation of degenerate (collinear) triangle");
     }

@@ -29,4 +29,13 @@ public class PointLight extends AbstractLight {
         // L = (LightPos - P) normalisé
         return this.position.subtract(p).normalize();
     }
+
+    @Override
+    public double getDistance(Point p) {
+        // Distance euclidienne entre le point P et la position de la lumière
+        Vector v = this.position.subtract(p);
+
+        // On retourne la norme (longueur) du vecteur
+        return Math.sqrt(v.dot(v));
+    }
 }

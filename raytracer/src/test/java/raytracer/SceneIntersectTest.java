@@ -27,11 +27,12 @@ class SceneIntersectTest {
     void setUp() {
         scene = new Scene();
         Color black = new Color(0, 0, 0);
+        double shininess = 32.0;
 
         // Sphère proche
-        sphereClose = new Sphere(new Point(0, 0, 0), 1.0, black, black);
+        sphereClose = new Sphere(new Point(0, 0, 0), 1.0, black, black, shininess);
         // Sphère lointaine, sur le même axe
-        sphereFar = new Sphere(new Point(0, 0, 5), 1.0, black, black);
+        sphereFar = new Sphere(new Point(0, 0, 5), 1.0, black, black, shininess);
 
         scene.addShape(sphereClose);
         scene.addShape(sphereFar);

@@ -25,8 +25,8 @@ public class Sphere extends Shape {
      * @param diffuse  Couleur diffuse
      * @param specular Couleur spéculaire
      */
-    public Sphere(Point center, double radius, Color diffuse, Color specular) {
-        super(diffuse, specular);
+    public Sphere(Point center, double radius, Color diffuse, Color specular, double shininess) {
+        super(diffuse, specular, shininess);
         this.center = center;
         this.radius = radius;
     }
@@ -100,6 +100,14 @@ public class Sphere extends Shape {
         Vector normal = p.subtract(this.center).normalize();
 
         // 3. Retourne l'intersection enrichie avec P, la Normale, et la couleur diffuse
-        return Optional.of(new Intersection(p, normal, this.getDiffuse(), t, this));
+        return Optional.of(new Intersection(
+                p,
+                normal,
+                this.getDiffuse(),
+                this.getSpecular(),
+                this.getShininess(),
+                t,
+                this
+        ));
     }
 }

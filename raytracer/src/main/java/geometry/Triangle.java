@@ -25,8 +25,8 @@ public class Triangle extends Shape {
      * @param diffuse Couleur diffuse
      * @param specular Couleur spéculaire
      */
-    public Triangle(Point a, Point b, Point c, Color diffuse, Color specular) {
-        super(diffuse, specular);
+    public Triangle(Point a, Point b, Point c, Color diffuse, Color specular, double shininess) {
+        super(diffuse, specular, shininess);
         this.a = a;
         this.b = b;
         this.c = c;

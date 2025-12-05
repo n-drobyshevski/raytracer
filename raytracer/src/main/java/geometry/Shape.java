@@ -14,6 +14,7 @@ public abstract class Shape {
 
     protected final Color diffuse;   // Couleur diffuse de l'objet
     protected final Color specular;  // Couleur spéculaire de l'objet
+    protected final double shininess; // Exposant de brillance
 
     /**
      * Constructeur pour une forme.
@@ -21,9 +22,10 @@ public abstract class Shape {
      * @param diffuse  Couleur diffuse
      * @param specular Couleur spéculaire
      */
-    protected Shape(Color diffuse, Color specular) {
+    protected Shape(Color diffuse, Color specular, double shininess) {
         this.diffuse = diffuse;
         this.specular = specular;
+        this.shininess = shininess;
     }
 
     // Getters
@@ -33,6 +35,10 @@ public abstract class Shape {
 
     public Color getSpecular() {
         return specular;
+    }
+
+    public double getShininess() {
+        return shininess;
     }
 
     /**

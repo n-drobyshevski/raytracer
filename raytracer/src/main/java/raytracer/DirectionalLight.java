@@ -29,4 +29,10 @@ public class DirectionalLight extends AbstractLight {
         // On suppose que le vecteur fourni dans le fichier est la direction VERS la lumière.
         return this.direction;
     }
+
+    @Override
+    public double getDistance(Point p) {
+        // Une lumière directionnelle est considérée comme étant à l'infini
+        return Double.POSITIVE_INFINITY;
+    }
 }

@@ -76,4 +76,24 @@ public class Scene {
         // On retourne la plus petite trouvée
         return closestIntersection;
     }
+    /**
+     * Vérifie si un point est à l'ombre pour une lumière donnée.
+     * @param shadowRay Le rayon qui part du point vers la lumière
+     * @param lightDistance La distance jusqu'à la lumière (pour ne pas tester au-delà)
+     * @return true si un objet bloque la lumière
+     */
+    public boolean isShadowed(Ray shadowRay, double lightDistance) {
+        for (Shape shape : shapes) {
+            Optional<Intersection> hit = shape.intersect(shadowRay);
+            if (hit.isPresent()) {
+                double t = hit.get().getT();
+                // L'objet doit être devant le point (t > epsilon)
+                // ET avant la lumière (t < lightDistance)
+                if (t > 1e-4 && t < lightDistance) {
+                    return true; // Intersection trouvée -> Ombre
+                }
+            }
+        }
+        return false; // Pas d'obstacle
+    }
 }
