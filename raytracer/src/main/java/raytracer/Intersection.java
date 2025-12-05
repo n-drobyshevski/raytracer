@@ -26,8 +26,14 @@ public class Intersection {
     }
 
     public Point getPoint() { return point; }
+    public Vector getNormal() { return normal; }
     public double getT() { return t; }
     public Shape getShape() { return shape; }
+    public Color getDiffuse() { return diffuse; }
+
+    // --- NOUVEAUX GETTERS (Jalon 6 requis) ---
+    public Color getSpecular() { return specular; }
+    public double getShininess() { return shininess; }
 
     /**
      * Calcule la couleur (Lambert + Blinn-Phong).

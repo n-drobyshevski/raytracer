@@ -23,7 +23,7 @@ public class Scene {
     private Color ambient = new Color(0, 0, 0);
     private final List<AbstractLight> lights = new ArrayList<>();
     private final List<Shape> shapes = new ArrayList<>();
-
+    private int maxDepth = 1;
     // Getters
     public int getWidth() { return width; }
     public int getHeight() { return height; }
@@ -33,6 +33,8 @@ public class Scene {
     public List<AbstractLight> getLights() { return lights; }
     public List<Shape> getShapes() { return shapes; }
 
+    public int getMaxDepth() { return maxDepth; }
+    public void setMaxDepth(int maxDepth) { this.maxDepth = maxDepth; }
     // Setters
     public void setWidth(int width) { this.width = width; }
     public void setHeight(int height) { this.height = height; }
@@ -55,26 +57,20 @@ public class Scene {
      * ou vide s'il n'y a pas d'intersection.
      */
     public Optional<Intersection> findClosestIntersection(Ray ray) {
-        Optional<Intersection> closestIntersection = Optional.empty();
+        Optional<Intersection> closest = Optional.empty();
         double minT = Double.MAX_VALUE;
 
-        // On calcule les intersections possibles avec tous les objets
         for (Shape shape : shapes) {
-            Optional<Intersection> currentIntersection = shape.intersect(ray);
-
-            if (currentIntersection.isPresent()) {
-                Intersection intersection = currentIntersection.get();
-                double t = intersection.getT();
-
-                // On garde la plus petite distance 't' positive
-                if (t > 0 && t < minT) {
+            Optional<Intersection> hit = shape.intersect(ray);
+            if (hit.isPresent()) {
+                double t = hit.get().getT();
+                if (t > 1e-4 && t < minT) { // epsilon pour éviter l'auto-intersection
                     minT = t;
-                    closestIntersection = currentIntersection;
+                    closest = hit;
                 }
             }
         }
-        // On retourne la plus petite trouvée
-        return closestIntersection;
+        return closest;
     }
     /**
      * Vérifie si un point est à l'ombre pour une lumière donnée.
@@ -87,13 +83,11 @@ public class Scene {
             Optional<Intersection> hit = shape.intersect(shadowRay);
             if (hit.isPresent()) {
                 double t = hit.get().getT();
-                // L'objet doit être devant le point (t > epsilon)
-                // ET avant la lumière (t < lightDistance)
                 if (t > 1e-4 && t < lightDistance) {
-                    return true; // Intersection trouvée -> Ombre
+                    return true;
                 }
             }
         }
-        return false; // Pas d'obstacle
+        return false;
     }
 }

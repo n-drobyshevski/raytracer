@@ -18,7 +18,7 @@ public class SceneFileParser {
 
     private Color currentDiffuse = new Color(0, 0, 0);
     private Color currentSpecular = new Color(0, 0, 0);
-    private double currentShininess = 0.0; // Shininess par défaut
+    private double currentShininess = 0.0; // Par défaut
 
     private int maxVerts = 0;
     private List<Point> vertices = new ArrayList<>();
@@ -46,7 +46,12 @@ public class SceneFileParser {
                     case "ambient": parseAmbient(tokens, scene); break;
                     case "diffuse": parseDiffuse(tokens, scene); break;
                     case "specular": parseSpecular(tokens); break;
-                    case "shininess": parseShininess(tokens); break; // Ajout Jalon 5
+
+                    // NOUVEAU : shininess
+                    case "shininess": parseShininess(tokens); break;
+                    // NOUVEAU JALON 6 : maxdepth
+                    case "maxdepth": parseMaxDepth(tokens, scene); break;
+
                     case "directional": parseDirectional(tokens, scene); break;
                     case "point": parsePoint(tokens, scene); break;
                     case "maxverts": parseMaxVerts(tokens); break;
@@ -62,6 +67,37 @@ public class SceneFileParser {
         if (!cameraSet) throw new ParsingException("Erreur: 'camera' non défini.");
         return scene;
     }
+
+    private void parseShininess(String[] tokens) throws ParsingException {
+        if (tokens.length != 2) throw new ParsingException("Erreur 'shininess': 1 argument attendu.");
+        try {
+            this.currentShininess = Double.parseDouble(tokens[1]);
+        } catch (NumberFormatException e) {
+            throw new ParsingException("Erreur 'shininess': nombre invalide.");
+        }
+    }
+
+    private void parseMaxDepth(String[] tokens, Scene scene) throws ParsingException {
+        if (tokens.length != 2) throw new ParsingException("Erreur 'maxdepth': 1 argument attendu.");
+        try {
+            int depth = Integer.parseInt(tokens[1]);
+            scene.setMaxDepth(depth);
+        } catch (NumberFormatException e) {
+            throw new ParsingException("Erreur 'maxdepth': nombre entier attendu.");
+        }
+    }
+
+    private void parseSphere(String[] tokens, Scene scene) throws ParsingException {
+        if (tokens.length != 5) throw new ParsingException("Erreur 'sphere'");
+        Point center = parsePoint(tokens, 1);
+        double radius = Double.parseDouble(tokens[4]);
+
+        // Ajout de currentShininess au constructeur
+        scene.addShape(new Sphere(center, radius, currentDiffuse, currentSpecular, currentShininess));
+    }
+
+    // ... Les autres méthodes de parsing (parseSize, parseCamera, etc.) restent identiques ...
+    // Je réinclus les méthodes essentielles pour que le fichier soit complet et compilable.
 
     private void parseSize(String[] tokens, Scene scene) throws ParsingException {
         if (tokens.length != 3) throw new ParsingException("Erreur 'size'");
@@ -98,15 +134,6 @@ public class SceneFileParser {
         currentSpecular = parseColor(tokens, 1);
     }
 
-    private void parseShininess(String[] tokens) throws ParsingException {
-        if (tokens.length != 2) throw new ParsingException("Erreur 'shininess'");
-        try {
-            currentShininess = Double.parseDouble(tokens[1]);
-        } catch (NumberFormatException e) {
-            throw new ParsingException("Erreur 'shininess': invalide.");
-        }
-    }
-
     private void parseDirectional(String[] tokens, Scene scene) throws ParsingException {
         if (tokens.length != 7) throw new ParsingException("Erreur 'directional'");
         Vector dir = parseVector(tokens, 1);
@@ -135,13 +162,6 @@ public class SceneFileParser {
         vertices.add(parsePoint(tokens, 1));
     }
 
-    private void parseSphere(String[] tokens, Scene scene) throws ParsingException {
-        if (tokens.length != 5) throw new ParsingException("Erreur 'sphere'");
-        Point c = parsePoint(tokens, 1);
-        double r = Double.parseDouble(tokens[4]);
-        scene.addShape(new Sphere(c, r, currentDiffuse, currentSpecular, currentShininess));
-    }
-
     private void parseTri(String[] tokens, Scene scene) throws ParsingException {
         if (tokens.length != 4) throw new ParsingException("Erreur 'tri'");
         int iA = Integer.parseInt(tokens[1]);
@@ -155,7 +175,6 @@ public class SceneFileParser {
         Point b = vertices.get(iB);
         Point c = vertices.get(iC);
 
-        // CORRECTION JALON 5 : Ajout de currentShininess
         scene.addShape(new Triangle(a, b, c, currentDiffuse, currentSpecular, currentShininess));
     }
 
@@ -163,12 +182,10 @@ public class SceneFileParser {
         if (tokens.length != 7) throw new ParsingException("Erreur 'plane'");
         Point p = parsePoint(tokens, 1);
         Vector n = parseVector(tokens, 4);
-
-        // CORRECTION JALON 5 : Ajout de currentShininess (assumant que Plane a aussi été mis à jour)
         scene.addShape(new Plane(p, n, currentDiffuse, currentSpecular, currentShininess));
     }
 
-    // --- Helpers ---
+    // Helpers
     private Point parsePoint(String[] tokens, int idx) {
         return new Point(Double.parseDouble(tokens[idx]), Double.parseDouble(tokens[idx+1]), Double.parseDouble(tokens[idx+2]));
     }
