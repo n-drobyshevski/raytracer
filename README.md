@@ -6,6 +6,8 @@ Auteurs : Nicolai Drobyshevski et Romain Yermolov
 
 Ce projet implémente un ray tracer en Java. Un ray tracer est un algorithme de rendu permettant de générer des images réalistes en simulant la trajectoire des rayons lumineux lors de leur interaction avec des objets 3D.
 
+![final.png](raytracer/final.png)
+
 ## Fonctionnalités
 
 - Rendu d’images réalistes à partir de fichiers de scènes personnalisées.
