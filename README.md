@@ -19,9 +19,8 @@ Ce projet implémente un ray tracer en Java. Un ray tracer est un algorithme de 
 
 ## Prérequis
 
-- **Java 11** ou une version ultérieure.
+- **Java 21** ou une version ultérieure.
 - L'outil **Maven**.
-- Un environnement de développement (IDE, JDK installé).
 
 ## Compilation et exécution
 
