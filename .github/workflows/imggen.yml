@@ -1,4 +1,4 @@
-name: Compile Jar file and generate image from scene input
+name: Compile Jar and generate image from scene
 
 on:
   workflow_dispatch:
