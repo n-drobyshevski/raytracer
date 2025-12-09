@@ -70,6 +70,7 @@
     </dependency>
   </dependencies>
   <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.target>11</maven.compiler.target>
     <junit.version>5.8.2</junit.version>
     <maven.compiler.source>11</maven.compiler.source>
