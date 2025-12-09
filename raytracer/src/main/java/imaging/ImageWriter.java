@@ -11,10 +11,11 @@ import javax.imageio.ImageIO;
 public class ImageWriter {
 
     /**
-     * Sauvegarde une BufferedImage dans un fichier PNG.
-     * @param image L'image à sauvegarder
-     * @param filePath Le chemin du fichier de sortie (ex: "output.png")
-     * @throws IOException Si l'écriture échoue
+     * Sauvegarde une image au format PNG sur disque.
+     *
+     * @param image L'image à sauver
+     * @param filePath Chemin du fichier cible (ex: "image.png")
+     * @throws IOException si erreur d'écriture
      */
     public void saveImage(BufferedImage image, String filePath) throws IOException {
         File outputFile = new File(filePath);

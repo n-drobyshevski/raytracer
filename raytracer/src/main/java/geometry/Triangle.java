@@ -9,10 +9,21 @@ import raytracer.Intersection;
 import java.util.Optional;
 
 /**
- * Représente un triangle défini par 3 points.
+ * Classe représentant un triangle dans l'espace 3D (trois sommets).
+ * Utilise l'algorithme de Möller-Trumbore pour l'intersection rayon-triangle.
  */
 public class Triangle extends Shape {
 
+    /**
+     * Crée un triangle à partir de 3 sommets.
+     *
+     * @param a Point A
+     * @param b Point B
+     * @param c Point C
+     * @param diffuse Couleur diffuse
+     * @param specular Couleur spéculaire
+     * @param shininess Exposant de brillance
+     */
     private final Point a;
     private final Point b;
     private final Point c;
@@ -30,10 +41,19 @@ public class Triangle extends Shape {
         this.normal = edge1.cross(edge2).normalize();
     }
 
+    /** Premier sommet. */
     public Point getA() { return a; }
+    /** Deuxième sommet. */
     public Point getB() { return b; }
+    /** Troisième sommet. */
     public Point getC() { return c; }
 
+    /**
+     * Calcule l'intersection entre ce triangle et le rayon.
+     *
+     * @param ray Le rayon à tester
+     * @return Un Optional contenant l'intersection, vide sinon
+     */
     @Override
     public Optional<Intersection> intersect(Ray ray) {
         // Algorithme d'intersection de Möller-Trumbore

@@ -5,6 +5,13 @@ package math;
  */
 public final class Vector extends AbstractVec3 {
 
+    /**
+     * Crée un vecteur 3D.
+     *
+     * @param x composante X
+     * @param y composante Y
+     * @param z composante Z
+     */
     public Vector(double x, double y, double z) {
         super(x, y, z);
     }
@@ -31,14 +38,18 @@ public final class Vector extends AbstractVec3 {
     }
 
     /**
-     * Produit scalaire
+     * Produit scalaire (dot product).
+     * @param other Autre vecteur
+     * @return Scalar résultant
      */
     public double dot(Vector other) {
         return this.x * other.x + this.y * other.y + this.z * other.z;
     }
 
     /**
-     * Produit vectoriel
+     * Produit vectoriel (cross product).
+     * @param other Autre vecteur
+     * @return Vecteur perpendiculaire
      */
     public Vector cross(Vector other) {
         return new Vector(

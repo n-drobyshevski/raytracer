@@ -12,7 +12,15 @@ import java.util.Optional;
  * Représente un plan infini défini par un point et une normale.
  */
 public class Plane extends Shape {
-
+    /**
+     * Constructeur d'un plan.
+     *
+     * @param point Un point appartenant au plan
+     * @param normal Vecteur normal au plan (sera normalisé)
+     * @param diffuse Couleur diffuse
+     * @param specular Couleur spéculaire
+     * @param shininess Exposant de brillance
+     */
     private final Point point;   // Un point appartenant au plan
     private final Vector normal; // Le vecteur normal au plan
 
@@ -22,9 +30,17 @@ public class Plane extends Shape {
         this.normal = normal.normalize(); // On s'assure que la normale est normalisée
     }
 
+    /** Un point du plan. */
     public Point getPoint() { return point; }
+    /** Normale du plan. */
     public Vector getNormal() { return normal; }
 
+    /**
+     * Calcule l'intersection entre le rayon et ce plan.
+     *
+     * @param ray Le rayon à tester
+     * @return Un Optional contenant l'intersection, vide sinon
+     */
     @Override
     public Optional<Intersection> intersect(Ray ray) {
         // Formule d'intersection Rayon-Plan :

@@ -9,8 +9,8 @@ import raytracer.Intersection;
 import java.util.Optional;
 
 /**
- * Représente un objet Sphère.
- * Mise à jour Jalon 4 : Calcul de la normale et du point d'intersection.
+ * Classe représentant une sphère dans l'espace 3D.
+ * Fournit le calcul d'intersection rayon-sphère pour le raytracing.
  */
 public class Sphere extends Shape {
 
@@ -18,13 +18,15 @@ public class Sphere extends Shape {
     private final double radius; // Rayon de la sphère
 
     /**
-     * Crée une nouvelle sphère.
+     * Constructeur d'une sphère.
      *
-     * @param center   Point central
-     * @param radius   Rayon
-     * @param diffuse  Couleur diffuse
+     * @param center Point central
+     * @param radius Rayon
+     * @param diffuse Couleur diffuse
      * @param specular Couleur spéculaire
+     * @param shininess Exposant de brillance
      */
+
     public Sphere(Point center, double radius, Color diffuse, Color specular, double shininess) {
         super(diffuse, specular, shininess);
         this.center = center;
@@ -32,17 +34,21 @@ public class Sphere extends Shape {
     }
 
     // Getters
+    /** Centre de la sphère. */
     public Point getCenter() {
         return center;
     }
 
+    /** Rayon de la sphère. */
     public double getRadius() {
         return radius;
     }
 
     /**
-     * Calcule l'intersection d'un rayon avec la sphère.
-     * Inclut le calcul de la normale pour l'éclairage (Jalon 4).
+     * Calcule l'intersection (point, normale) entre le rayon et la sphère.
+     *
+     * @param ray Le rayon à tester
+     * @return Un Optional contenant l'intersection, vide sinon
      */
     @Override
     public Optional<Intersection> intersect(Ray ray) {

@@ -3,12 +3,19 @@ package math;
 public abstract class AbstractVec3 { //
 
     /**
-     * Une petite valeur pour comparer les 'double'
+     * Constructeur vecteur 3D.
+     *
+     * @param x composante X
+     * @param y composante Y
+     * @param z composante Z
      */
     public static final double EPSILON = 1e-9;
 
+    /** Retourne x. */
     protected final double x;
+    /** Retourne y. */
     protected final double y;
+    /** Retourne z. */
     protected final double z;
 
     protected AbstractVec3(double x, double y, double z) {

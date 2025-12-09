@@ -19,6 +19,7 @@ public abstract class AbstractLight {
         this.color = color;
     }
 
+    /** Couleur de la lumière. */
     public Color getColor() { return color; }
 
     /**
@@ -27,9 +28,11 @@ public abstract class AbstractLight {
      * @return Le vecteur direction normalisé vers la source lumineuse
      */
     public abstract Vector getL(Point p);
+
     /**
-     * Calcule la distance jusqu'à la lumière depuis un point P.
-     * Nécessaire pour les ombres (pour ne pas tester au-delà de la lumière).
+     * Calcule la distance de la lumière au point pour gérer l'ombre.
+     * @param p Point d'origine
+     * @return Distance à la source
      */
     public abstract double getDistance(Point p);
 }

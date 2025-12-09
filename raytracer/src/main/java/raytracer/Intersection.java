@@ -6,7 +6,16 @@ import math.Point;
 import math.Vector;
 
 public class Intersection {
-
+    /**
+     * Crée une intersection.
+     * @param point Point d'impact
+     * @param normal Normale au point
+     * @param diffuse Couleur diffuse
+     * @param specular Couleur spéculaire
+     * @param shininess Expo brillance
+     * @param t Distance sur le rayon
+     * @param shape Objet touché
+     */
     private final Point point;
     private final Vector normal;
     private final Color diffuse;
@@ -36,9 +45,10 @@ public class Intersection {
     public double getShininess() { return shininess; }
 
     /**
-     * Calcule la couleur (Lambert + Blinn-Phong).
-     * @param light La lumière
-     * @param eyeDir Le vecteur direction vers l'œil (nécessaire pour Phong)
+     * Calcule la couleur en ce point selon les modèles d’éclairage.
+     * @param light Lumière considérée
+     * @param eyeDir Direction vers la caméra
+     * @return La couleur calculée
      */
     public Color calculateColor(AbstractLight light, Vector eyeDir) {
         Vector l = light.getL(this.point);

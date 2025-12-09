@@ -22,17 +22,20 @@ public class Ray {
         this.direction = direction;
     }
 
+    /** Origine du rayon. */
     public Point getOrigin() {
         return origin;
     }
-
+    /** Direction du rayon. */
     public Vector getDirection() {
         return direction;
     }
 
     /**
-     * Calcule le point p à une distance t le long du rayon.
-     * p = origin + direction * t
+     * Calcule le point sur le rayon à la distance t.
+     *
+     * @param t Distance sur le rayon
+     * @return Point atteint
      */
     public Point pointAt(double t) {
         return origin.add(direction.multiply(t));

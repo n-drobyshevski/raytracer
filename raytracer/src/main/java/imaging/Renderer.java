@@ -12,9 +12,10 @@ import java.awt.image.BufferedImage;
 public class Renderer {
 
     /**
-     * Calcule le rendu d'une scène
-     * @param scene L'objet Scène à rendre
-     * @return Une BufferedImage contenant l'image rendue
+     * Effectue le rendu pixellisé d'une scène.
+     *
+     * @param scene La scène à rendre
+     * @return Image générée après raytracing
      */
     public BufferedImage render(Scene scene) {
         int width = scene.getWidth();

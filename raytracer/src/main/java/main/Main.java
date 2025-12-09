@@ -18,7 +18,10 @@ import org.slf4j.LoggerFactory;
  * Programme principal du lanceur de rayons.
  */
 public class Main {
-
+    /**
+     * Programme principal du Raytracer.
+     * @param args Chemin du fichier de scène
+     */
     private static final Logger logger = LoggerFactory.getLogger(Main.class);
 
     // Default scene path relative to 'src/main/resources'

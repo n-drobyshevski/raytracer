@@ -17,10 +17,11 @@ public abstract class Shape {
     protected final double shininess; // Exposant de brillance
 
     /**
-     * Constructeur pour une forme.
+     * Crée une forme avec les propriétés matérielles.
      *
      * @param diffuse  Couleur diffuse
      * @param specular Couleur spéculaire
+     * @param shininess Exposant de brillance
      */
     protected Shape(Color diffuse, Color specular, double shininess) {
         this.diffuse = diffuse;

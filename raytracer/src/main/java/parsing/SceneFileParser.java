@@ -15,7 +15,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SceneFileParser {
-
+    /**
+     * Lit et analyse un fichier de scène. 
+     * @param filePath Chemin du fichier à lire
+     * @return Objet Scene rempli
+     * @throws IOException Si fichier illisible
+     * @throws ParsingException Si format ou données invalides
+     */
     private Color currentDiffuse = new Color(0, 0, 0);
     private Color currentSpecular = new Color(0, 0, 0);
     private double currentShininess = 0.0; // Par défaut

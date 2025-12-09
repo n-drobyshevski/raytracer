@@ -7,8 +7,15 @@ import math.Point;
 import java.util.Optional;
 import scene.Scene;
 
-public class RayTracer {
+/**
+ * Moteur raytracing principal : calcule la couleur d’un pixel par lancer de rayon et récursion.
+ */
 
+public class RayTracer {
+    /**
+     * Instancie le core raytracer.
+     * @param scene Scène à lancer
+     */
     private final Scene scene;
     private final OrthonormalBasis onb;
     private final double pixelWidth;
@@ -30,8 +37,10 @@ public class RayTracer {
     }
 
     /**
-     * Point d'entrée pour le calcul d'un pixel.
-     * Lance la récursion avec une profondeur initiale de 1.
+     * Calcule la couleur du pixel (i, j).
+     * @param i Abscisse
+     * @param j Ordonnée
+     * @return Couleur calculée
      */
     public Color getPixelColor(int i, int j) {
         Ray viewRay = calculateRay(i, j);

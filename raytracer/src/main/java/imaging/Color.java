@@ -16,12 +16,22 @@ public final class Color extends AbstractVec3 {
         super(0, 0, 0);
     }
 
+    /**
+     * Crée une couleur à partir de ses trois composantes.
+     *
+     * @param r Rouge (0.0-1.0)
+     * @param g Vert (0.0-1.0)
+     * @param b Bleu (0.0-1.0)
+     */
     public Color(double r, double g, double b) {
         super(clamp(r), clamp(g), clamp(b)); // Clampe les valeurs
     }
 
+    /** Composante rouge. */
     public double r() { return this.x; }
+    /** Composante verte. */
     public double g() { return this.y; }
+    /** Composante bleue. */
     public double b() { return this.z; }
 
     /**
@@ -53,7 +63,9 @@ public final class Color extends AbstractVec3 {
     }
 
     /**
-     * Convertit la couleur (double 0-1) en entier RGB 8 bits
+     * Convertit la couleur en entier RGB 8 bits.
+     *
+     * @return Entier au format 0xRRGGBB
      */
     public int toRGB() {
         int red   = (int) Math.round(this.x * 255);
