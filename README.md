@@ -16,6 +16,7 @@ Ce projet implémente un ray tracer en Java. Un ray tracer est un algorithme de 
 ## Prérequis
 
 - **Java 11** ou une version ultérieure.
+- Le compilateur **Maven**.
 - Un environnement de développement (IDE, JDK installé).
 
 ## Compilation et exécution
@@ -24,13 +25,13 @@ Ce projet implémente un ray tracer en Java. Un ray tracer est un algorithme de 
    ```bash
    git clone https://github.com/n-drobyshevski/raytracer.git
    ```
-2. Compilez le projet :
+2. Compilez le projet (depuis le dossier raytracer):
    ```bash
-   javac -d bin raytracer/**/*.java
+   mvn clean package
    ```
 3. Exécutez la génération d’une image :
    ```bash
-   java -cp bin raytracer.Main test0.scene
+   java -jar target/raytracer-1.0-SNAPSHOT-shaded.jar test0.scene
    ```
 
 ## Arborescence
