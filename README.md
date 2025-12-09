@@ -8,6 +8,8 @@ Ce projet implémente un ray tracer en Java. Un ray tracer est un algorithme de 
 
 ![final.png](raytracer/final.png)
 
+![final.png](raytracer/dragon3.png)
+
 ## Fonctionnalités
 
 - Rendu d’images réalistes à partir de fichiers de scènes personnalisées.
