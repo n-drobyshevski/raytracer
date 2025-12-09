@@ -25,19 +25,23 @@ jobs:
       - name: Build the JAR with Maven
         run: mvn -B package --file raytracer/pom.xml
 
+      - name : Work inside temporary folder
+        run: mkdir tmp
+
       - name: Fetch .scene file if it is a URL
         if: startsWith(inputs.scene_file_path, 'http')
         run: |
-          curl -LsS "${{ github.event.inputs.scene_file_path }}" -o input.scene
+          curl -LsS "${{ github.event.inputs.scene_file_path }}" -o tmp/input.scene
 
       - name: Copy .scene from repo if needed
         if: "!startsWith(inputs.scene_file_path, 'http')"
         run: |
-          cp "${{ github.event.inputs.scene_file_path }}" input.scene
+          cp "${{ github.event.inputs.scene_file_path }}" tmp/input.scene
 
       - name: Run the raytracer jar with input scene
         run: |
-          JAR_PATH=$(find raytracer/target -name "*.jar" | grep -v "original" | head -n1)
+          JAR_PATH=$(find ../raytracer/target -name "*.jar" | grep -v "original" | head -n1)
+          cd tmp
           java -jar "$JAR_PATH" input.scene
 
       - name: List generated PNG files
